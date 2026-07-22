@@ -1,0 +1,12 @@
+{"ts": "2026-07-22T20:26:30+00:00", "run_date": "20250724", "check": "file_naming", "status": "PASS", "file": "network_metrics_20250724.csv"}
+{"ts": "2026-07-22T20:26:30+00:00", "run_date": "20250724", "check": "schema_columns", "status": "PASS"}
+{"ts": "2026-07-22T20:26:31+00:00", "run_date": "20250724", "check": "row_checks", "status": "REJECTED", "reason": "data_volume_negative", "rows": 1}
+{"ts": "2026-07-22T20:26:31+00:00", "run_date": "20250724", "check": "row_checks", "status": "REJECTED", "reason": "region_null", "rows": 1}
+{"ts": "2026-07-22T20:26:31+00:00", "run_date": "20250724", "check": "row_checks", "status": "REJECTED", "reason": "tower_id_not_castable", "rows": 1}
+{"ts": "2026-07-22T20:26:31+00:00", "run_date": "20250724", "check": "row_checks", "status": "REJECTED", "reason": "timestamp_invalid", "rows": 1}
+{"ts": "2026-07-22T20:26:31+00:00", "run_date": "20250724", "check": "row_checks", "status": "REJECTED", "reason": "tower_id_null", "rows": 1}
+{"ts": "2026-07-22T20:26:31+00:00", "run_date": "20250724", "check": "row_checks", "status": "REJECTED", "reason": "signal_strength_out_of_range", "rows": 2}
+{"ts": "2026-07-22T20:26:31+00:00", "run_date": "20250724", "check": "row_checks", "status": "WARN", "total_rows": 82, "rejected_rows": 7}
+{"ts": "2026-07-22T20:26:33+00:00", "run_date": "20250724", "check": "duplicates", "status": "WARN", "duplicate_rows": 1}
+{"ts": "2026-07-22T20:26:33+00:00", "run_date": "20250724", "check": "tower_region_consistency", "status": "WARN", "towers_in_multiple_regions": 8}
+{"ts": "2026-07-22T20:26:34+00:00", "run_date": "20250724", "check": "volume_anomaly_zscore", "status": "WARN", "anomalous_rows": 1, "threshold": 3.0}

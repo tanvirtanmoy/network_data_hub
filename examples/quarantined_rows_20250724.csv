@@ -1,0 +1,8 @@
+tower_id,region,timestamp,signal_strength,data_volume_mb,_source_file,_ingested_at,_run_date,_dq_reason
+108,North,1753364700,-84.6,-42.5,network_metrics_20250724.csv,2026-07-22T20:26:28.706Z,20250724,data_volume_negative
+106,West,1753344900,-150.0,112.3,network_metrics_20250724.csv,2026-07-22T20:26:28.706Z,20250724,signal_strength_out_of_range
+ABC,South,1753326000,-79.4,88.0,network_metrics_20250724.csv,2026-07-22T20:26:28.706Z,20250724,tower_id_not_castable
+,North,1753319700,-81.2,120.5,network_metrics_20250724.csv,2026-07-22T20:26:28.706Z,20250724,tower_id_null
+107,Central,1753352100,10.0,77.9,network_metrics_20250724.csv,2026-07-22T20:26:28.706Z,20250724,signal_strength_out_of_range
+104,,1753333200,-83.1,140.2,network_metrics_20250724.csv,2026-07-22T20:26:28.706Z,20250724,region_null
+105,East,not_a_ts,-77.8,95.6,network_metrics_20250724.csv,2026-07-22T20:26:28.706Z,20250724,timestamp_invalid

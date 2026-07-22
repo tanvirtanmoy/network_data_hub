@@ -86,11 +86,14 @@ def apply_row_checks(df: DataFrame, cfg: dict, vlog: ValidationLog) -> tuple[Dat
     """
     dq = cfg["data_quality"]
 
+    # try_cast, not cast: under ANSI mode a plain cast throws on malformed
+    # input (e.g. tower_id='ABC'), but here a failed cast is exactly the
+    # signal we want - it becomes NULL and the row gets rejected with a reason.
     typed = (
-        df.withColumn("tower_id_t", F.col("tower_id").cast(IntegerType()))
-        .withColumn("timestamp_t", F.col("timestamp").cast(LongType()))
-        .withColumn("signal_strength_t", F.col("signal_strength").cast(DoubleType()))
-        .withColumn("data_volume_mb_t", F.col("data_volume_mb").cast(DoubleType()))
+        df.withColumn("tower_id_t", F.col("tower_id").try_cast(IntegerType()))
+        .withColumn("timestamp_t", F.col("timestamp").try_cast(LongType()))
+        .withColumn("signal_strength_t", F.col("signal_strength").try_cast(DoubleType()))
+        .withColumn("data_volume_mb_t", F.col("data_volume_mb").try_cast(DoubleType()))
     )
 
     # Rules are evaluated together so a row reports every problem it has,

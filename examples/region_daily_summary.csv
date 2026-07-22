@@ -1,0 +1,6 @@
+event_date,region,total_data_volume_mb,avg_signal_strength,measurement_count,active_towers,anomalous_measurements
+2025-07-24,Central,2263.1,-83.89,17,7,0
+2025-07-24,East,1973.6,-78.09,11,7,0
+2025-07-24,North,2838.0,-81.47,20,8,0
+2025-07-24,South,6751.9,-80.71,15,6,1
+2025-07-24,West,2024.4,-83.26,11,6,0
