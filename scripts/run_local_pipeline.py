@@ -19,6 +19,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from src.config import load_config
 from src.ingestion import ingest_to_bronze
 from src.spark_session import get_spark
+from src.transform_silver import build_silver
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s: %(message)s")
 logger = logging.getLogger("run_local_pipeline")
@@ -34,7 +35,10 @@ def main() -> None:
     try:
         logger.info("=== bronze: ingesting raw file for %s ===", args.date)
         ingest_to_bronze(spark, cfg, args.date)
-        # TODO: silver (validate + clean) and gold (aggregates) steps
+
+        logger.info("=== silver: validating and cleaning ===")
+        build_silver(spark, cfg, args.date)
+        # TODO: gold (aggregates) step
     finally:
         spark.stop()
 
