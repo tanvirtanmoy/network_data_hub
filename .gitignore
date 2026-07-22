@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+
+# Pipeline working data — only the raw sample file is versioned
+data/bronze/
+data/silver/
+data/gold/
+data/quarantine/
+logs/
+
+# Spark
+spark-warehouse/
+derby.log
+metastore_db/
+
+# Editors / local
+.idea/
+.vscode/
+
+# Assignment brief and original download (not part of the submission)
+*.pdf
+network_metrics_20250723 (1).csv

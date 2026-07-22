@@ -1,0 +1,10 @@
+pyspark==4.2.0
+PyYAML>=6.0
+pandas>=2.2
+pyarrow>=17.0
+pytest>=8.0
+
+# Only needed on the scheduler, not for running jobs locally:
+# apache-airflow==2.10.*
+# apache-airflow-providers-amazon
+# apache-airflow-providers-apache-spark
