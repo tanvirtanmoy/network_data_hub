@@ -1,0 +1,37 @@
+# Pipeline configuration.
+# Paths point at the local filesystem for development. In production these
+# become the s3a:// URIs noted below - job code stays the same.
+
+environment: local
+
+paths:
+  raw: data/raw               # prod: s3a://raw-telecom-network-data
+  bronze: data/bronze         # prod: s3a://telecom-lakehouse/bronze
+  silver: data/silver         # prod: s3a://telecom-lakehouse/silver
+  gold: data/gold             # prod: s3a://telecom-lakehouse/gold
+  quarantine: data/quarantine # rejected rows kept for inspection / replay
+  logs: logs
+
+source:
+  file_pattern: "network_metrics_{date}.csv"   # date = YYYYMMDD
+  expected_columns:
+    - tower_id
+    - region
+    - timestamp
+    - signal_strength
+    - data_volume_mb
+
+data_quality:
+  # plausible dBm range for a cell signal
+  signal_strength_min: -120.0
+  signal_strength_max: -30.0
+  data_volume_min: 0.0
+  # fail the run (not just quarantine) when more than this fraction of rows is bad
+  max_rejected_fraction: 0.10
+  # z-score threshold for per-region data volume anomalies
+  anomaly_zscore_threshold: 3.0
+
+spark:
+  app_name: network-data-hub
+  master: local[*]
+  shuffle_partitions: 8
