@@ -118,6 +118,37 @@ What I'd add next in a real deployment:
 - An SLA on gold table publish time, since that's what the ops team actually
   consumes.
 
+## Visualization (Superset)
+
+To cover the optional Superset part I spun up a local instance with Docker,
+loaded the gold tables into a small Postgres, and built the daily report chart
+on top of `region_daily_summary`:
+
+![daily data volume per region](docs/img/superset_daily_volume_per_region.png)
+
+The 2025-07-24 South spike is the seeded 5000 MB anomaly from the dirty sample
+day - satisfying to see it jump out visually after the DQ gate flagged it.
+
+To reproduce:
+
+```bash
+docker network create superset-demo
+docker run -d --name superset-demo-db --network superset-demo \
+  -e POSTGRES_USER=superset -e POSTGRES_PASSWORD=superset -e POSTGRES_DB=gold \
+  -p 5433:5432 postgres:16
+# load the gold report CSVs into postgres (see data/gold/reports/), then:
+docker run -d --name superset-demo --network superset-demo -p 8088:8088 \
+  -e SUPERSET_SECRET_KEY=change-me apache/superset:4.1.1
+docker exec superset-demo pip install psycopg2-binary && docker restart superset-demo
+docker exec superset-demo superset db upgrade
+docker exec superset-demo superset fab create-admin --username admin \
+  --firstname a --lastname d --email admin@local --password admin
+docker exec superset-demo superset init
+```
+
+Then add `postgresql+psycopg2://superset:superset@superset-demo-db:5432/gold`
+as a database in the Superset UI and build charts on the two gold tables.
+
 ## Running it locally
 
 Needs Python 3.10+ and a Java 17 runtime (Spark requirement).
@@ -194,8 +225,8 @@ Roughly in the order of the commit history:
   compaction and snapshot retention jobs.
 - Replace the hand-rolled checks with Great Expectations (or dbt tests if the
   silver/gold steps move to SQL) to get the docs/UI for free.
-- A small Superset dashboard on the gold tables (volume per region over time,
-  signal heatmap by hour).
+- A proper Superset dashboard (the setup above has single charts; a dashboard
+  with a date filter would be the next step) and an hourly signal heatmap.
 - CI running the pytest suite on every push.
 - Backfill support is nearly free: enable `catchup=True` and the DAG reruns
   historical dates partition by partition.
