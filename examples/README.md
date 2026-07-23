@@ -9,6 +9,8 @@ behaves. The files here are the actual outputs of running
 
 | file | what it shows |
 |---|---|
+| `bronze_sample_rows.csv` | what rows look like in the bronze table: everything still a string, plus the lineage columns added at ingestion |
+| `silver_sample_rows.csv` | the same feed after the DQ gate: typed columns, UTC `event_ts`, derived date/hour, anomaly flag |
 | `validation_20250724.jsonl` | the structured event log the validation step writes - one JSON line per check, with PASS / WARN / REJECTED / FAIL status |
 | `quarantined_rows_20250724.csv` | the 7 rejected rows, each with a `_dq_reason` column saying exactly why it was kicked out |
 | `region_daily_summary.csv` | the daily gold report, built from the rows that survived |

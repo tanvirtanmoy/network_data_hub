@@ -153,6 +153,27 @@ The runner prints the daily summary at the end; reports land in
 └── data/raw/   # simulated S3 landing bucket with the two sample days
 ```
 
+## How I broke the work down
+
+Roughly in the order of the commit history:
+
+1. **Scaffold** — repo layout, config file, requirements, sample data in place.
+2. **Foundations** — config loader and a shared Spark session factory, so every
+   job reads the same settings and swapping local paths for S3 stays a
+   config-only change.
+3. **Bronze ingestion** plus a **local runner** early, so every later step
+   could be executed end-to-end instead of reviewed on faith.
+4. **The DQ gate** before silver — the checks shape what silver is allowed to
+   contain, so they had to exist first.
+5. **Silver, then gold** — typing/dedup/timestamps, then the two aggregate
+   tables the ops team asked for.
+6. **Airflow DAG** once the jobs were stable: sensor, three tasks, retries,
+   failure notifications.
+7. **Iceberg DDL** for the three layers, matching what the jobs actually write.
+8. **A dirty sample day** to prove the DQ gate does what the code claims —
+   this is also what surfaced the ANSI-mode cast bug (fixed with `try_cast`).
+9. **Tests** for the validation rules, then this README.
+
 ## Assumptions
 
 - **Towers report from multiple regions.** In the sample file the same

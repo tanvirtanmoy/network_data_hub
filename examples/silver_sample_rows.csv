@@ -1,0 +1,6 @@
+tower_id,region,unix_timestamp,signal_strength,data_volume_mb,is_volume_anomaly,_source_file,_ingested_at,event_ts,event_hour,event_date
+102,North,1753315200,-76.5,99.0,False,network_metrics_20250724.csv,2026-07-22 20:26:28.706043,2025-07-24 00:00:00,0,2025-07-24
+103,North,1753316100,-78.1,228.4,False,network_metrics_20250724.csv,2026-07-22 20:26:28.706043,2025-07-24 00:15:00,0,2025-07-24
+102,Central,1753317000,-84.5,56.0,False,network_metrics_20250724.csv,2026-07-22 20:26:28.706043,2025-07-24 00:30:00,0,2025-07-24
+104,South,1753317900,-82.4,55.3,False,network_metrics_20250724.csv,2026-07-22 20:26:28.706043,2025-07-24 00:45:00,0,2025-07-24
+104,Central,1753318800,-84.5,139.8,False,network_metrics_20250724.csv,2026-07-22 20:26:28.706043,2025-07-24 01:00:00,1,2025-07-24
